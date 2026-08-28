@@ -61,7 +61,7 @@ Verified locally on 7 diverse test cases including spiro[5.5]undecanone, branche
 
 ## 3. What needs the next session
 
-### A. Training-side integration (1-2 days)
+### A. Training-side integration 
 
 Three things, each independent:
 
@@ -69,7 +69,7 @@ Three things, each independent:
 2. **Dataset .pkl extraction**: Run `extract_layout_v5_5()` over ZINC250K to produce a new labels .pkl. The notebook setup is identical to v5.4's batch-2.1 preprocessing — just swap the function name.
 3. **A2 training**: No code changes required. Just point `--labels-pkl` at the v5.5 .pkl and retrain. The atom_ids+M_total fields are unchanged in shape.
 
-### B. A3 (branch topology) implementation (3-5 days)
+### B. A3 (branch topology) implementation  
 
 This is the genuinely new modeling work. The branch trees need a generative model. Two design options spelled out in `run_training_v5_5_a3.py`:
 
@@ -78,7 +78,7 @@ This is the genuinely new modeling work. The branch trees need a generative mode
 
 The A3 model takes input from A1+A2 (R, F, L, atom_ids, spiro_atom_positions) plus the property condition, and outputs (B_size, B_pos, B_parent, B_bond).
 
-### C. Generation pipeline (1-2 days, after A3)
+### C. Generation pipeline  
 
 `meanflow/compose_full_molecule_zinc.py` currently assembles molecules from `(atom_ids, bond_classes, atom_mask, fragment_ids)`. The v5.5 generation path is:
 
@@ -91,7 +91,7 @@ The A3 model takes input from A1+A2 (R, F, L, atom_ids, spiro_atom_positions) pl
 
 The new step is step 3. `decode_v5_5_to_scaffold()` is already written (tested for roundtrip). The plumbing in compose_full_molecule_zinc.py needs to be extended to accept v5.5 label tensors and call the new decoder.
 
-### D. Notebooks (1 day)
+### D. Notebooks  
 
 Three notebooks to author, mirroring v5.4:
 
@@ -155,16 +155,8 @@ When you start a new Claude conversation to continue this work, paste the follow
 
 ---
 
-> I'm continuing work on **HiMoDiT**, the property-conditioned generative model for redox-active electrolyte design (extended to ZINC250K druglike chemistry). Background: I'm an AI-for-science researcher with a computational chemistry background, working in Colab/Drive.
->
-> The v5.5 codebase is at `/content/drive/My Drive/machine-learning/generative/MeanFlow/mean-flow-v5.5-ZINC250K/`.
->
-> **Current state**: The v5.5 encoder + decoder are written and validated. **Production-validated retention: 93.25% on ZINC250K (vs 83.14% v5.4 baseline, +10.11 pp, 0 regressions).** The major architectural extensions are:
-> - **Branched pendants**: trees-with-parent-indices replace v5.4's linear-chain pendants. New label fields: `B_size`, `B_pos`, `B_parent`, `B_bond` (replacing `P_len`, `P_pos`).
-> - **Spiro junctions**: `F_SPIRO=3` added to F-vocab, accepted at sp³-quaternary C/N+/Si centers. New label field: `spiro_atom_positions`.
-> - **M_MAX hardening**: AST-patched default-arg staleness in `ring_layout_decoder.py` (was silently truncating labels). Already on disk.
->
-> The full design + status doc with file structure is at `HiMoFlow_v5_5_design.md` in the v5.5 directory. Read it first before doing anything else.
+
+> The full design + status doc with file structure is at `HiMoDiT_design.md` in the v5.5 directory. Read it first before doing anything else.
 >
 > **What's blocking generation** (each ~1-3 days):
 >
