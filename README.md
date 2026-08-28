@@ -2,23 +2,7 @@
 
 ## Quick orientation
 
-**Read `HiMoDiT_design.md` first.** It has the current status, what's done, what's next, and a restart prompt for new Claude conversations.
-
-**Headline number**: 93.25% ZINC250K retention (vs 83.14% v5.4 baseline, +10.11 pp). Validated on 20K-row random sample with 0 regressions.
-
-## What's in v5.5
-
-- Branched-pendant encoder (trees, not linear chains)
-- Spiro junctions accepted at sp³-quaternary C/N+/Si centers (F_SPIRO=3)
-- M_MAX default-arg staleness bug fully patched
-- Atom vocab K=16, terminal SMARTS K=22, ring vocab K=11 (Phase 2D baked in)
-
-## What's NOT in v5.5 yet (needs next session)
-
-- A3 (branch-topology) training script — STUB only
-- A1 model F_classes bump 3→4 to predict F_SPIRO
-- Generation pipeline integration with `decode__to_scaffold()`
-- Preprocess + train + generate notebooks (mirror v5.4's three)
+ 
 
 ## File layout
 
