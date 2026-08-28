@@ -1,4 +1,4 @@
-# HiMoFlow v5.5 — design + current status
+#HiMoDiT — design + current status
 
 **Last updated**: 2026-05-11
 **Status**: Encoder + decoder validated end-to-end. Training scripts and generation pipeline need integration work.
