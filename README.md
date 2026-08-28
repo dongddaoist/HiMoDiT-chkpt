@@ -1,8 +1,8 @@
-# HiMoFlow v5.5 — ZINC250K-validated generative scaffold model
+# HiMoDiT — ZINC250K-validated generative scaffold model
 
 ## Quick orientation
 
-**Read `HiMoFlow_v5_5_design.md` first.** It has the current status, what's done, what's next, and a restart prompt for new Claude conversations.
+**Read `HiMoDiT_design.md` first.** It has the current status, what's done, what's next, and a restart prompt for new Claude conversations.
 
 **Headline number**: 93.25% ZINC250K retention (vs 83.14% v5.4 baseline, +10.11 pp). Validated on 20K-row random sample with 0 regressions.
 
@@ -17,30 +17,30 @@
 
 - A3 (branch-topology) training script — STUB only
 - A1 model F_classes bump 3→4 to predict F_SPIRO
-- Generation pipeline integration with `decode_v5_5_to_scaffold()`
+- Generation pipeline integration with `decode__to_scaffold()`
 - Preprocess + train + generate notebooks (mirror v5.4's three)
 
 ## File layout
 
-See `HiMoFlow_v5_5_design.md` §4 for the full file tree.
+See `HiMoDiT_design.md` §4 for the full file tree.
 
 Quick highlights:
-- `preprocessing/ring_layout_dataset.py` — has both `extract_layout()` (v5.4) and `extract_layout_v5_5()` (new). New code should use the v5.5 version.
-- `meanflow/ring_layout_decoder.py` — has both `decode_layout_to_scaffold()` (v5.4) and `decode_v5_5_to_scaffold()` (new). New code should use the v5.5 version.
-- `v5_5_diagnostics/` — validation scripts that produced the 93.25% number. These were used to validate v5.5; they're not part of the runtime path.
+- `preprocessing/ring_layout_dataset.py` — has both `extract_layout()` (v5.4) and `extract_layout_()` (new). New code should use the v5.5 version.
+- `meanflow/ring_layout_decoder.py` — has both `decode_layout_to_scaffold()` (v5.4) and `decode__to_scaffold()` (new). New code should use the v5.5 version.
+- `_diagnostics/` — validation scripts that produced the 93.25% number. These were used to validate v5.5; they're not part of the runtime path.
 - `archive_v5_4/` — v5.4 notebooks and README, kept for reference.
 
 ## How to use this codebase
 
 ```python
 # Encode a SMILES → v5.5 label
-from preprocessing.ring_layout_dataset import extract_layout_v5_5
-label, reason = extract_layout_v5_5("CC[NH+](CC)[C@](C)(CC)[C@H](O)c1cscc1Br")
+from preprocessing.ring_layout_dataset import extract_layout_
+label, reason = extract_layout_("CC[NH+](CC)[C@](C)(CC)[C@H](O)c1cscc1Br")
 # label = {'R': ..., 'F': ..., 'L': ..., 'B_size': ..., ... 'M_total': 11}
 
 # Decode label → bond_classes matrix
-from meanflow.ring_layout_decoder import decode_v5_5_to_scaffold
-bond_classes, atom_mask = decode_v5_5_to_scaffold(
+from meanflow.ring_layout_decoder import decode__to_scaffold
+bond_classes, atom_mask = decode__to_scaffold(
     label['R'], label['F'], label['L'],
     label['B_size'], label['B_pos'], label['B_parent'], label['B_bond'],
     label['spiro_atom_positions'], label['atom_ids'],
