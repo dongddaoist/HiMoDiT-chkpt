@@ -155,7 +155,7 @@ When you start a new Claude conversation to continue this work, paste the follow
 
 ---
 
-> I'm continuing work on **HiMoFlow v5.5**, the property-conditioned generative model for redox-active electrolyte design (extended to ZINC250K druglike chemistry). Background: I'm an AI-for-science researcher with a computational chemistry background, working in Colab/Drive.
+> I'm continuing work on **HiMoDiT**, the property-conditioned generative model for redox-active electrolyte design (extended to ZINC250K druglike chemistry). Background: I'm an AI-for-science researcher with a computational chemistry background, working in Colab/Drive.
 >
 > The v5.5 codebase is at `/content/drive/My Drive/machine-learning/generative/MeanFlow/mean-flow-v5.5-ZINC250K/`.
 >
